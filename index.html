@@ -1,1 +1,347 @@
-Hello World
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Легиас - Карта мира</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+      charset="utf-8"
+    />
+
+    <link rel="stylesheet" href="scripts/leaflet.css" />
+    <script src="scripts/leaflet.js"></script>
+
+    <link rel="stylesheet" href="scripts/leaflet-sidebar.css" />
+    <script src="scripts/leaflet-sidebar.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="scripts/leaflet.measure.css" />
+    <script src="scripts/leaflet.measure.js"></script>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+        font-size: 12pt;
+        font-family: "Roboto", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body style="height: 100%; margin: 0">
+    <div id="map" style="width: 100%; height: 100%; background: #192020"></div>
+    <div id="sidebar" class="sidebar collapsed">
+      <!-- Nav tabs -->
+      <div class="sidebar-tabs">
+        <ul role="tablist">
+          <li>
+            <a href="#home" role="tab"><i class="fa fa-bars"></i></a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Tab panes -->
+      <div class="sidebar-content">
+        <div class="sidebar-pane" id="home">
+          <h1 class="sidebar-header" id="home-header"></h1>
+          <p id="home-text"></p>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      //Creating the Map
+      var map = L.map("map", {
+        crs: L.CRS.Simple,
+        zoomControl: false,
+        measureControl: {
+          enabled: true,
+          unitLabel: "mi",
+          unitFactor: 0.016,
+        },
+      }).setView([0, 0], 0);
+      L.control.zoom({ position: "topright" }).addTo(map);
+
+      var sidebar = L.control.sidebar("sidebar").addTo(map);
+      map.on("click", function () {
+        sidebar.close();
+      });
+
+      L.tileLayer("tree/{z}/{y}/{x}.webp", {
+        continuousWorld: false,
+        noWrap: true,
+        minZoom: 2,
+        maxZoom: 7,
+      }).addTo(map);
+
+      //Icons
+      var capital = L.icon({
+        iconUrl: "icons/crown.png",
+        iconRetinaUrl: "icons/crown.png",
+        iconSize: [48, 48],
+        iconAnchor: [24, 24],
+        popupAnchor: [0, -12],
+      });
+      var city = L.icon({
+        iconUrl: "icons/medieval-gate.png",
+        iconRetinaUrl: "icons/medieval-gate.png",
+        iconSize: [40, 40],
+        iconAnchor: [20, 20],
+        popupAnchor: [0, -10],
+      });
+      var town = L.icon({
+        iconUrl: "icons/village.png",
+        iconRetinaUrl: "icons/village.png",
+        iconSize: [36, 36],
+        iconAnchor: [18, 18],
+        popupAnchor: [0, -9],
+      });
+      var citadel = L.icon({
+        iconUrl: "icons/white-tower.png",
+        iconRetinaUrl: "icons/white-tower.png",
+        iconSize: [40, 40],
+        iconAnchor: [20, 20],
+        popupAnchor: [0, -10],
+      });
+      //Markers
+
+      function setArticle(mrk, title, text) {
+        mrk.on("click", function () {
+          sidebar.open("home");
+          document.getElementById("home-header").innerHTML = title;
+          document.getElementById("home-text").innerHTML = text;
+        });
+      }
+
+      //глодор
+      var mrk_01_001 = L.marker([-12.025639, 3.1875], { icon: capital }).addTo(
+        map
+      );
+      setArticle(mrk_01_001, "Рэим", "");
+      var mrk_01_002 = L.marker([12.9375, -2.03125], { icon: city }).addTo(map);
+      setArticle(mrk_01_002, "Радена", "");
+      var mrk_01_003 = L.marker([0.468667, -2.90625], { icon: city }).addTo(
+        map
+      );
+      setArticle(mrk_01_003, "Картал", "");
+      var mrk_01_004 = L.marker([4.48358, -9.765625], { icon: city }).addTo(
+        map
+      );
+      setArticle(mrk_01_004, "Иусавирра", "");
+      var mrk_01_005 = L.marker([0.468612, 11], { icon: city }).addTo(map);
+      setArticle(mrk_01_005, "Таируан", "");
+      var mrk_01_006 = L.marker([-4.595848, 19.59375], { icon: city }).addTo(
+        map
+      );
+      setArticle(mrk_01_006, "Глоусс", "");
+      var mrk_01_007 = L.marker([-21.062517, 11.8125], { icon: city }).addTo(
+        map
+      );
+      setArticle(mrk_01_007, "Краридж", "");
+      var mrk_01_008 = L.marker([-16.562334, 24.8125], { icon: city }).addTo(
+        map
+      );
+      setArticle(mrk_01_008, "Тагеражт", "");
+      var mrk_01_009 = L.marker([-16.720385, -15.336914], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_01_009, "Крепость1", "");
+      var mrk_01_010 = L.marker([-17.308688, -16.21582], {
+        icon: citadel,
+      }).addTo(map);
+      setArticle(mrk_01_010, "Крепость2", "");
+
+      //
+      var mrk_02_001 = L.marker([-27.031278, -28.03125], {
+        icon: capital,
+      }).addTo(map);
+      setArticle(mrk_02_001, "Жимерех", "");
+      var mrk_02_002 = L.marker([-162.343436, 87.835938], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_02_002, "Магакса", "");
+      var mrk_02_003 = L.marker([-29.630771, -46.669922], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_02_003, "Пазеровка", "");
+
+      //
+      var mrk_03_001 = L.marker([-12.953045, -36.671875], {
+        icon: capital,
+      }).addTo(map);
+      setArticle(mrk_03_001, "Круволь", "");
+
+      //
+      var mrk_04_001 = L.marker([-14.015611, -28.03125], {
+        icon: capital,
+      }).addTo(map);
+      setArticle(mrk_04_001, "Ижемь", "");
+      var mrk_04_002 = L.marker([-17.497389, -26.081543], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_04_002, "Лешивка/Лешменя", "");
+      var mrk_04_003 = L.marker([-18.187607, -24.32373], { icon: city }).addTo(
+        map
+      );
+      setArticle(mrk_04_003, "Пастылев", "");
+      var mrk_04_004 = L.marker([-15.36895, -30.102539], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_04_004, "Мьянрог", "");
+      var mrk_04_005 = L.marker([-15.36895, -30.102539], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_04_005, "Мавны", "");
+      var mrk_04_006 = L.marker([-13.090179, -21.115723], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_04_006, "Зарельма", "");
+      var mrk_04_007 = L.marker([-15.919074, -23.466797], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_04_007, "Воскремна", "");
+      var mrk_04_008 = L.marker([-17.748687, -19.599609], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_04_008, "Берёды", "");
+      var mrk_04_009 = L.marker([-18.958246, -20.126953], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_04_009, "Батахово", "");
+
+      //
+      var mrk_05_001 = L.marker([-38.062506, -40.140625], {
+        icon: capital,
+      }).addTo(map);
+      setArticle(mrk_05_001, "Кхуршепт", "");
+      var mrk_05_002 = L.marker([-37.516575, -39.234375], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_05_002, "Араштар", "");
+      var mrk_05_003 = L.marker([-36.062677, -40.140625], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_05_003, "Абурут", "");
+      var mrk_05_004 = L.marker([-36.484267, -37.546875], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_05_004, "Харесъяф", "");
+      var mrk_05_005 = L.marker([-37.968756, -36.671875], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_05_005, "Вадидамеш", "");
+      var mrk_05_006 = L.marker([-40.000199, -38.40625], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_05_006, "Жаавит", "");
+      var mrk_05_007 = L.marker([-41.531233, -37.5625], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_05_007, "Марадфа", "");
+      var mrk_05_008 = L.marker([-42.422639, -34.0625], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_05_008, "Искатбах", "");
+      var mrk_05_009 = L.marker([-42.468761, -32.375], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_05_009, "Мукаран", "");
+
+      //Осция
+      var mrk_01 = L.marker([-38.873929, -27.224121], { icon: capital }).addTo(
+        map
+      );
+      setArticle(mrk_01, "Мюнслев", "");
+      var mrk_01 = L.marker([-20.03529, -22.478027], { icon: town }).addTo(map);
+      setArticle(mrk_01, "Арбай", "");
+      var mrk_01 = L.marker([-26.234302, -21.203613], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_01, "Неунрода", "");
+      var mrk_01 = L.marker([-37.770715, -27.268066], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_01, "Карлина", "");
+      var mrk_01 = L.marker([-41.623655, -26.081543], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_01, "Бургсоикс", "");
+      var mrk_01 = L.marker([-37.195331, -26.015625], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_01, "Менген", "");
+      var mrk_01 = L.marker([-36.633162, -22.324219], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_01, "Вальденкут", "");
+      var mrk_01 = L.marker([-34.397845, -22.280273], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_01, "Тервиг", "");
+      var mrk_01 = L.marker([-42.032974, -22.346191], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_01, "Херсен", "");
+      var mrk_01 = L.marker([-22.126355, -19.577637], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_01, "Брушаль", "");
+      var mrk_01 = L.marker([-24.287027, -21.027832], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_01, "Танлейн", "");
+      var mrk_01 = L.marker([-21.534847, -20.126953], { icon: town }).addTo(
+        map
+      );
+      setArticle(mrk_01, "Кесмир", "");
+
+      //Аскария
+      var mrk_01 = L.marker([-27.078167, -3.6875], { icon: capital }).addTo(
+        map
+      );
+      setArticle(mrk_01, "Акмен-Жувис", 'Край "каменной рыбы"');
+
+      //Кустрела
+      var mrk_01 = L.marker([7.468756, -35.75], { icon: capital }).addTo(map);
+      setArticle(mrk_01, "Грелет", "");
+      var mrk_01 = L.marker([27.683528, -69.851074], { icon: city }).addTo(map);
+      setArticle(mrk_01, "Цуфис", "");
+
+      // //Marker Groups
+      // var mg_glodor = L.layerGroup([
+      //   mrk_01_001,
+      //   mrk_01_002,
+      //   mrk_01_003,
+      //   mrk_01_004,
+      //   mrk_01_005,
+      //   mrk_01_006,
+      //   mrk_01_007,
+      //   mrk_01_008,
+      //   mrk_01_009,
+      //   mrk_01_010,
+      // ]);
+      // var mg_234 = L.layerGroup([]);
+      // //Marker Overlay
+      // var overlays = {
+      //   Глодор: mg_glodor,
+      // };
+      // //GROUP CONTROLS
+      // L.control.layers(null, overlays).addTo(map);
+
+      //Coordinate Finder
+      var marker = L.marker([0, 0], {
+        draggable: true,
+      }).addTo(map);
+      marker.bindPopup("LatLng Marker");
+      marker.on("click", function (e) {
+        marker.getPopup().setContent(marker.getLatLng().toString()).openOn(map);
+      });
+    </script>
+  </body>
+</html>
