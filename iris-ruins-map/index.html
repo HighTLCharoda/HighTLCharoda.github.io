@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="scripts/leaflet.css" />
     <script src="scripts/leaflet.js"></script>
 
+    <link rel="stylesheet" href="scripts/hoverpulse.css" />
+
     <link rel="stylesheet" href="scripts/leaflet-sidebar.css" />
     <script src="scripts/leaflet-sidebar.js"></script>
 
@@ -23,6 +25,8 @@
 
     <link rel="stylesheet" href="scripts/leaflet.measure.css" />
     <script src="scripts/leaflet.measure.js"></script>
+
+    
 
     <style>
       html,
@@ -55,18 +59,27 @@
       </div>
     </div>
 
+    <style>
+      
+    </style>
+
     <script type="text/javascript">
 
       var map = L.map("map", {
         crs: L.CRS.Simple,
         zoomControl: false,
+        attributionControl: false,
         measureControl: {
           enabled: true,
-          unitLabel: "mi",
-          unitFactor: 0.016,
-        },
+          unitLabel: "км",
+          unitFactor: 5.5,
+        }
       }).setView([0, 0], 0);
       L.control.zoom({ position: "topright" }).addTo(map);
+
+     /*  L.control.attribution({
+        prefix: 'Custom attribution text'
+      }).addTo(map); */
 
       L.tileLayer("pyramid/{z}/{y}/{x}.webp", {
         continuousWorld: false,
@@ -75,24 +88,61 @@
         maxZoom: 5,
       }).addTo(map);
 
-      //Icons
-      // var capital = L.icon({
-      //   iconUrl: "icons/crown.png",
-      //   iconRetinaUrl: "icons/crown.png",
-      //   iconSize: [48, 48],
-      //   iconAnchor: [24, 24],
-      //   popupAnchor: [0, -12],
-      // });
-      //Markers
+      var town = L.icon({
+        iconUrl: "icons/village.svg",
+        iconRetinaUrl: "icons/village.svg",
+        iconSize: [64, 64],
+        iconAnchor: [32, 32],
+        popupAnchor: [0, -9]
+      });
+      var vines = L.icon({
+        iconUrl: "icons/light-thorny-triskelion.svg",
+        iconRetinaUrl: "icons/light-thorny-triskelion.svg",
+        iconSize: [64, 64],
+        iconAnchor: [32, 32],
+        popupAnchor: [0, -9],
+      });
+      var pine = L.icon({
+        iconUrl: "icons/pine-tree.svg",
+        iconRetinaUrl: "icons/pine-tree.svg",
+        iconSize: [64, 64],
+        iconAnchor: [32, 32],
+        popupAnchor: [0, -9]
+      });
+      var obelisk = L.icon({
+        iconUrl: "icons/obelisk.svg",
+        iconRetinaUrl: "icons/obelisk.svg",
+        iconSize: [64, 64],
+        iconAnchor: [32, 32],
+        popupAnchor: [0, -9]
+      });
+      var swamp = L.icon({
+        iconUrl: "icons/swamp.svg",
+        iconRetinaUrl: "icons/swamp.svg",
+        iconSize: [64, 64],
+        iconAnchor: [32, 32],
+        popupAnchor: [0, -9]
+      });
+      
+
+
+      var marker001 = L.marker([29.24819, 2.856332], { icon: town }).addTo(map);
+      var marker002 = L.marker([21.864229, -2.124076], { icon: obelisk }).addTo(map);
+      var marker003 = L.marker([18.615829, -9.68329], { icon: swamp }).addTo(map);
+      var marker004 = L.marker([32.421528, -0.312364], { icon: pine }).addTo(map);
+      var marker005 = L.marker([10.026311, -2.498913], { icon: vines }).addTo(map);
+
+
 
       //Coordinate Finder
-      var marker = L.marker([0, 0], {
+      /* var marker = L.marker([0, 0], {
         draggable: true,
       }).addTo(map);
       marker.bindPopup("LatLng Marker");
       marker.on("click", function (e) {
         marker.getPopup().setContent(marker.getLatLng().toString()).openOn(map);
-      });
+      }); */
+      
     </script>
   </body>
 </html>
